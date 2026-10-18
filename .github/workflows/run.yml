@@ -22,7 +22,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-          COLLECTION_ID: QLg88A8c
+          COLLECTION_ID: https://modrinth.com/collection/QLg88A8c
           # LOADERS: paper
           # GAME_VERSIONS: "26.3"
         run: python script.py
