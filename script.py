@@ -107,10 +107,12 @@ def main():
         print("Error: DISCORD_WEBHOOK is missing.")
         sys.exit(1)
     print(f"Collection: {COLLECTION_ID} | Token: {'set (' + str(len(MODRINTH_TOKEN)) + ' chars)' if MODRINTH_TOKEN else 'MISSING'}")
-    collection = http_get_json(f"{API_BASE}/collection/{COLLECTION_ID}")
-    if not collection:
-        print("Collection not found (wrong ID, or private: set MODRINTH_TOKEN).")
-        sys.exit(1)
+    collection = None
+    for base in ("https://api.modrinth.com/v3", API_BASE):  # v3 first, v2 as fallback
+        collection = http_get_json(f"{base}/collection/{COLLECTION_ID}", retries=2)
+        if collection:
+            print(f"Collection loaded via {base}")
+            break
     ids = collection.get("projects", [])
     projects = http_get_json(f"{API_BASE}/projects", params={"ids": json.dumps(ids)})
     if projects is None:
