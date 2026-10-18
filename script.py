@@ -37,7 +37,6 @@ def save_cache(cache):
         json.dump(cache, f, indent=2, sort_keys=True)
         f.write("\n")
 def fetch_latest_version(project):
-    """Newest version (by publish date), None on API failure, {} if the project has no version."""
     params = {}
     if LOADERS:
         params["loaders"] = json.dumps(LOADERS)
@@ -107,6 +106,7 @@ def main():
     if not WEBHOOK_URL and not DRY_RUN:
         print("Error: DISCORD_WEBHOOK is missing.")
         sys.exit(1)
+    print(f"Collection: {COLLECTION_ID} | Token: {'set (' + str(len(MODRINTH_TOKEN)) + ' chars)' if MODRINTH_TOKEN else 'MISSING'}")
     collection = http_get_json(f"{API_BASE}/collection/{COLLECTION_ID}")
     if not collection:
         print("Collection not found (wrong ID, or private: set MODRINTH_TOKEN).")
