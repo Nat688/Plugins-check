@@ -7,7 +7,7 @@ import requests
 WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK")
 DRY_RUN = os.environ.get("DRY_RUN") == "1"
 MODRINTH_TOKEN = os.environ.get("MODRINTH_TOKEN")
-COLLECTION_ID = os.environ.get("COLLECTION_ID", "QLg88A8c")
+COLLECTION_ID = os.environ.get("COLLECTION_ID", "QLg88A8c").strip().rstrip("/").split("/")[-1]
 LOADERS = [x.strip() for x in os.environ.get("LOADERS", "").split(",") if x.strip()]
 GAME_VERSIONS = [x.strip() for x in os.environ.get("GAME_VERSIONS", "").split(",") if x.strip()]
 API_BASE = "https://api.modrinth.com/v2"
